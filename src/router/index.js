@@ -56,6 +56,23 @@ export const constantRoutes = [
   },
 
   {
+    path: '/basic-data',
+    component: Layout,
+    redirect: '/basic-data/companies',
+    name: 'Basic-Data',
+    meta: { title: 'Basic Data', icon: 'basic' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'companies',
+        name: 'Companies',
+        component: () => import('@/views/companies/index'),
+        meta: { title: 'Companies', icon: 'company' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
