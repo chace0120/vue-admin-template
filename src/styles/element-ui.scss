@@ -47,3 +47,9 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+.app-container {
+  .el-checkbox__label {
+    font-weight: 700;
+  }
+}

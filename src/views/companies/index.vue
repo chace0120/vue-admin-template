@@ -1,23 +1,30 @@
 <template>
   <div class="app-container">
-    <el-form :inline="true" :model="query" size="small">
-      <el-form-item>
-        <el-checkbox v-model="query.onlyHotels" label="Only hotels" />
-      </el-form-item>
-      <el-form-item label="Status">
-        <el-select v-model="query.onlyOpen" placeholder="Status">
-          <el-option label="All" value="0" />
-          <el-option label="Only for open" value="1" />
-          <el-option label="Only for close" value="2" />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-input v-model="query.cpName" placeholder="search by name" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" size="">Search</el-button>
-      </el-form-item>
-    </el-form>
+    <el-row type="flex" class="row-bg" justify="space-between">
+      <el-col :span="20">
+        <el-form :inline="true" :model="query" size="small">
+          <el-form-item label="Status">
+            <el-select v-model="query.onlyOpen" placeholder="Status">
+              <el-option label="All" value="0" />
+              <el-option label="Only for open" value="1" />
+              <el-option label="Only for close" value="2" />
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-checkbox v-model="query.onlyHotels" label="Only hotels" />
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="query.cpName" placeholder="search by name" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" size="small" icon="el-icon-search">Search</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+      <el-col :span="2">
+        <el-button type="success" size="small" icon="el-icon-plus" @click.native.prevent="addNewCompany">New</el-button>
+      </el-col>
+    </el-row>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -57,9 +64,10 @@
       </el-table-column>
       <el-table-column label="Operation" width="250">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">View</el-button>
-          <el-button size="mini" type="warning" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+          <el-button size="mini" type="primary" plain @click="handleEdit(scope.$index, scope.row)">View</el-button>
+          <el-button size="mini" type="warning" plain @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
           <el-button
+            plain
             size="mini"
             :type="scope.row.status | statusBtnFilter"
             @click="handleDelete(scope.$index, scope.row)"
@@ -121,16 +129,22 @@ export default {
         this.list = response.data.items
         this.listLoading = false
       })
+    },
+    addNewCompany() {
+      this.$router.push({ path: '/basic-data/new-company' })
     }
   }
 }
 </script>
 
-<style lang="scss">
-/* reset element-ui css */
+<style lang="scss" scoped>
 .app-container {
-  .el-checkbox__label {
-    font-weight: 700;
+  .el-row {
+    .el-col {
+      &:last-child {
+        text-align: right;
+      }
+    }
   }
 }
 </style>

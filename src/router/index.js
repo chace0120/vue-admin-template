@@ -68,6 +68,13 @@ export const constantRoutes = [
         name: 'Companies',
         component: () => import('@/views/companies/index'),
         meta: { title: 'Companies', icon: 'company' }
+      },
+      {
+        path: 'new-company',
+        hidden: true,
+        name: 'New Company',
+        component: () => import('@/views/companies/add/index'),
+        meta: { title: 'New Company' }
       }
     ]
   },
